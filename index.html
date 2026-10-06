@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Reseller ( VIP Premium VIP Unlimited ) - JuikoDeveloper</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neo-lime: #D7FF00;
+            --neo-lime-2: #BFFF00;
+            --neo-lime-soft: #F1FFB8;
+            --neo-white: #FFFFFF;
+            --neo-black: #111111;
+            --neo-gray: #F4F4F0;
+            --neo-shadow: 10px 10px 0 var(--neo-black);
+            --neo-shadow-sm: 5px 5px 0 var(--neo-black);
+            --neo-radius: 18px;
+            --neo-speed: .22s;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.98)),
+                repeating-linear-gradient(90deg, rgba(17,17,17,.055) 0 2px, transparent 2px 38px),
+                repeating-linear-gradient(0deg, rgba(17,17,17,.055) 0 2px, transparent 2px 38px);
+            color: var(--neo-black);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            position: relative;
+            isolation: isolate;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+            pointer-events: none;
+            border: 4px solid var(--neo-black);
+            background: var(--neo-lime);
+            box-shadow: 7px 7px 0 var(--neo-black);
+        }
+
+        body::before {
+            width: 110px;
+            height: 110px;
+            top: 4vh;
+            left: -28px;
+            transform: rotate(-14deg);
+            animation: neoFloatA 7s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 78px;
+            height: 78px;
+            right: -14px;
+            bottom: 8vh;
+            transform: rotate(12deg);
+            background: var(--neo-white);
+            animation: neoFloatB 8s ease-in-out infinite;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none !important;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding: clamp(14px, 2.5vw, 28px) !important;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .container > .glass-card {
+            flex: 1 1 auto;
+            width: 100%;
+        }
+
+        .glass-card,
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--neo-white) !important;
+            border: 4px solid var(--neo-black) !important;
+            border-radius: var(--neo-radius) !important;
+            box-shadow: var(--neo-shadow) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            transition: transform var(--neo-speed) ease, box-shadow var(--neo-speed) ease, border-color var(--neo-speed) ease;
+            animation: neoPanelIn .65s cubic-bezier(.2,.75,.2,1) both;
+        }
+
+        .glass-card::before,
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(120deg, transparent 0 38%, rgba(255,255,255,.72) 48%, transparent 58%),
+                radial-gradient(circle at 8% 8%, rgba(215,255,0,.25), transparent 28%);
+            transform: translateX(-130%);
+            animation: neoShine 8s ease-in-out infinite;
+        }
+
+        .glass-card:hover,
+        .stat-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 13px 13px 0 var(--neo-black) !important;
+        }
+
+        .glass-card:focus-within,
+        .stat-card:focus-within {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0 var(--neo-lime) !important;
+        }
+
+        .gradient-gold-text {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            -webkit-text-fill-color: initial !important;
+            color: var(--neo-black) !important;
+        }
+
+        .btn-gradient-gold {
+            position: relative;
+            overflow: hidden;
+            background: var(--neo-lime) !important;
+            border: 4px solid var(--neo-black) !important;
+            color: var(--neo-black) !important;
+            font-weight: 800;
+            border-radius: 14px !important;
+            box-shadow: var(--neo-shadow-sm) !important;
+            transition: transform var(--neo-speed) ease, box-shadow var(--neo-speed) ease, background var(--neo-speed) ease;
+            animation: neoButtonIn .5s .12s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .btn-gradient-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 -40%;
+            width: 32%;
+            transform: skewX(-20deg);
+            background: rgba(255,255,255,.62);
+            animation: neoButtonShine 4.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .btn-gradient-gold:hover,
+        .btn-gradient-gold:focus,
+        .btn-gradient-gold:active {
+            background: var(--neo-lime-2) !important;
+            color: var(--neo-black) !important;
+            transform: translate(3px, 3px) scale(.995);
+            box-shadow: 2px 2px 0 var(--neo-black) !important;
+        }
+
+        .btn-gradient-gold:active {
+            transform: translate(5px, 5px);
+        }
+
+        .form-control-custom {
+            background: var(--neo-white) !important;
+            border: 4px solid var(--neo-black) !important;
+            color: var(--neo-black) !important;
+            border-radius: 12px !important;
+            box-shadow: 4px 4px 0 var(--neo-black) !important;
+            transition: transform var(--neo-speed) ease, box-shadow var(--neo-speed) ease, background var(--neo-speed) ease;
+        }
+
+        .form-control-custom:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 6px 6px 0 var(--neo-black) !important;
+            background: #FCFFF2 !important;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--neo-black) !important;
+            box-shadow: 6px 6px 0 var(--neo-lime) !important;
+            outline: none !important;
+            transform: translate(-2px, -2px);
+        }
+
+        .form-control-custom::placeholder {
+            color: #666 !important;
+            opacity: 1;
+        }
+
+        .input-group {
+            animation: neoItemIn .55s .08s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .input-group-text {
+            background: var(--neo-lime) !important;
+            border: 4px solid var(--neo-black) !important;
+            border-right: 0 !important;
+            color: var(--neo-black) !important;
+            border-radius: 12px 0 0 12px !important;
+            box-shadow: 0 4px 0 var(--neo-black);
+            transition: transform var(--neo-speed) ease, background var(--neo-speed) ease;
+        }
+
+        .input-group:focus-within .input-group-text {
+            background: var(--neo-lime-2) !important;
+            transform: translate(-2px, -2px);
+        }
+
+        .step-badge {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 12px;
+            background: var(--neo-lime);
+            border: 4px solid var(--neo-black);
+            color: var(--neo-black);
+            box-shadow: var(--neo-shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            animation: neoBadge 2.8s ease-in-out infinite;
+        }
+
+        .step-active {
+            animation: neoItemIn .5s .04s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .modal-content-glass {
+            background: var(--neo-white) !important;
+            border: 4px solid var(--neo-black) !important;
+            border-radius: 20px !important;
+            color: var(--neo-black) !important;
+            box-shadow: 12px 12px 0 var(--neo-black) !important;
+            backdrop-filter: none !important;
+            animation: neoModalIn .45s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .modal-icon-header {
+            background: var(--neo-lime) !important;
+            border: 4px solid var(--neo-black) !important;
+            border-radius: 14px !important;
+            box-shadow: var(--neo-shadow-sm);
+            display: inline-flex;
+            width: 70px;
+            height: 70px;
+            align-items: center;
+            justify-content: center;
+            animation: neoIconPop 1.8s ease-in-out infinite;
+        }
+
+        .console-log {
+            position: relative;
+            overflow: hidden;
+            background: var(--neo-black) !important;
+            color: var(--neo-white) !important;
+            border: 4px solid var(--neo-black) !important;
+            border-left: 12px solid var(--neo-lime) !important;
+            border-radius: 14px !important;
+            box-shadow: var(--neo-shadow-sm) !important;
+            animation: neoItemIn .55s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .console-log::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -120%;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(180deg, transparent, rgba(215,255,0,.16), transparent);
+            animation: neoConsoleScan 3.2s linear infinite;
+            pointer-events: none;
+        }
+
+        .gold-badge {
+            background: var(--neo-lime) !important;
+            border: 3px solid var(--neo-black) !important;
+            color: var(--neo-black) !important;
+            border-radius: 999px !important;
+            box-shadow: 3px 3px 0 var(--neo-black);
+            transition: transform var(--neo-speed) ease, box-shadow var(--neo-speed) ease;
+        }
+
+        .gold-badge:hover {
+            transform: translate(-1px, -1px) rotate(-1deg);
+            box-shadow: 5px 5px 0 var(--neo-black);
+        }
+
+        .buyer-card {
+            background: var(--neo-lime-soft) !important;
+            border: 4px dashed var(--neo-black) !important;
+            border-radius: 14px !important;
+            box-shadow: var(--neo-shadow-sm);
+            animation: neoItemIn .55s .1s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .text-readable-muted {
+            color: #333 !important;
+        }
+
+        .gold-glow-border {
+            box-shadow: var(--neo-shadow) !important;
+        }
+
+        .text-warning,
+        .text-success,
+        .text-primary,
+        .text-info,
+        .text-danger {
+            color: var(--neo-black) !important;
+        }
+
+        .bg-dark,
+        .bg-warning-subtle,
+        .alert-dark {
+            background: var(--neo-white) !important;
+            color: var(--neo-black) !important;
+        }
+
+        .border-warning,
+        .border-success,
+        .border-info,
+        .border-danger {
+            border-color: var(--neo-black) !important;
+        }
+
+        .text-white {
+            color: var(--neo-black) !important;
+        }
+
+        #step1,
+        #step2 {
+            color: var(--neo-black);
+            animation: neoSectionIn .55s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .modal-backdrop.show {
+            background: var(--neo-lime);
+            opacity: .56;
+            animation: neoBackdrop .35s ease both;
+        }
+
+        .alert {
+            border-width: 4px !important;
+            border-radius: 14px !important;
+            box-shadow: var(--neo-shadow-sm);
+            animation: neoItemIn .55s .15s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        @keyframes neoPanelIn {
+            0% { opacity: 0; transform: translateY(22px) scale(.985); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes neoSectionIn {
+            0% { opacity: 0; transform: translateX(-12px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes neoItemIn {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes neoButtonIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes neoShine {
+            0%, 35% { transform: translateX(-130%); }
+            55%, 100% { transform: translateX(130%); }
+        }
+
+        @keyframes neoButtonShine {
+            0%, 55% { left: -40%; }
+            75%, 100% { left: 125%; }
+        }
+
+        @keyframes neoBadge {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-2px) rotate(-1deg); }
+        }
+
+        @keyframes neoIconPop {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-4px) rotate(-2deg); }
+        }
+
+        @keyframes neoConsoleScan {
+            0% { top: -120%; }
+            100% { top: 140%; }
+        }
+
+        @keyframes neoModalIn {
+            0% { opacity: 0; transform: translateY(24px) scale(.94) rotate(-1deg); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+        }
+
+        @keyframes neoBackdrop {
+            from { opacity: 0; }
+            to { opacity: .56; }
+        }
+
+        @keyframes neoFloatA {
+            0%, 100% { transform: translateY(0) rotate(-14deg); }
+            50% { transform: translateY(18px) rotate(-8deg); }
+        }
+
+        @keyframes neoFloatB {
+            0%, 100% { transform: translateY(0) rotate(12deg); }
+            50% { transform: translateY(-14px) rotate(5deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 12px !important;
+            }
+
+            .glass-card {
+                box-shadow: 7px 7px 0 var(--neo-black) !important;
+                border-width: 3px !important;
+            }
+
+            .btn-gradient-gold {
+                border-width: 3px !important;
+            }
+
+            .form-control-custom,
+            .input-group-text {
+                border-width: 3px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5" style="max-width: 850px;">
+        
+
+        <!-- Main Form Panel -->
+        <div class="glass-card p-4 p-md-5 mb-4 gold-glow-border">
+            
+            <!-- Custom Order ID Settings (Fitur Tambahan) -->
+            <div class="mb-4 pb-3 border-bottom border-warning border-opacity-25">
+                <label for="orderIdInput" class="form-label text-warning small fw-bold">
+                    <i class="fa-solid fa-receipt me-1"></i> Format Custom Order ID (Fitur VIP)
+                </label>
+                <div class="input-group">
+                    <span class="input-group-text bg-dark border-warning border-opacity-50 text-warning"><i class="fa-solid fa-tag"></i></span>
+                    <input type="text" class="form-control form-control-custom fw-semibold" id="orderIdInput" value="JuikoDev-VIP-0000-">
+                </div>
+            </div>
+
+            <!-- Step 1: Kirim Magic Link ke Buyer -->
+            <div id="step1">
+                <div class="d-flex align-items-center mb-4 step-active">
+                    <span class="step-badge">1</span>
+                    <h5 class="mb-0 fw-bold text-white">Kirim Link Verifikasi ke Email Buyer</h5>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="emailInput" class="form-label text-readable-muted small fw-medium">Email Akun Alight Motion Target (Buyer)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-warning border-opacity-50 text-warning"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" class="form-control form-control-custom" id="emailInput" placeholder="emailbuyer@gmail.com">
+                    </div>
+                </div>
+                
+                <button class="btn btn-gradient-gold w-100 py-3" onclick="sendMagicLink()">
+                    <i class="fa-solid fa-paper-plane me-2"></i> Kirim Magic Link ke Buyer
+                </button>
+            </div>
+
+            <!-- Step 2: Auto Premium & Verifikasi (Hidden Default) -->
+            <div id="step2" style="display: none;">
+                <div class="d-flex align-items-center mb-3 step-active">
+                    <span class="step-badge">2</span>
+                    <h5 class="mb-0 fw-bold text-white">Verifikasi & Eksekusi Premium Buyer</h5>
+                </div>
+
+                <!-- Preview Info Buyer -->
+                <div class="buyer-card mb-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <small class="text-readable-muted d-block">Target Akun Buyer:</small>
+                        <span id="targetBuyerDisplay" class="fw-bold text-warning fs-6">AkunAm@gmail.com</span>
+                    </div>
+                    <span class="badge gold-badge px-3 py-2">UNLIMITED PROCESS</span>
+                </div>
+                
+                <div class="alert alert-dark border-warning bg-warning bg-opacity-10 text-warning rounded-3 small mb-4">
+                    <i class="fa-solid fa-circle-exclamation me-2 fs-6"></i>
+                    <strong>Instruksi Reseller:</strong> Minta buyer Anda mengecek kotak masuk emailnya, lalu minta buyer meng-copy link dari tombol verifikasi Alight Motion dan kirimkan kepada Anda.
+                </div>
+
+                <div class="mb-4">
+                    <label for="linkInput" class="form-label text-readable-muted small fw-medium">Paste Magic Link / Verification URL dari Buyer</label>
+                    <textarea class="form-control form-control-custom" id="linkInput" rows="3" placeholder="https://alightcreative.com/login?..."></textarea>
+                </div>
+
+                <button class="btn btn-gradient-gold w-100 mb-3 py-3" onclick="processPremium()">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Proses Aktifkan Premium VIP Instan
+                </button>
+                
+                <button class="btn btn-link text-readable-muted text-decoration-none w-100 text-center small" onclick="resetForm()">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Batal / Ganti Email Buyer
+                </button>
+            </div>
+
+            <!-- Output Status / Console -->
+            <div id="statusLog" class="console-log p-3 mt-4 d-none">
+                <div class="d-flex align-items-center mb-1">
+                    <span class="spinner-grow spinner-grow-sm text-warning me-2" id="logSpinner"></span>
+                    <small class="text-warning fw-bold">LOG SISTEM VERIFIKASI JUIKOWEB VIP</small>
+                </div>
+                <small id="logText" class="d-block text-white"></small>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal Pop-Up Welcome Info VIP -->
+    <div class="modal fade" id="infoModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-glass p-3">
+                <div class="modal-body text-center pt-4">
+                    <div class="modal-icon-header">
+                        <i class="fa-solid fa-crown text-warning fs-2"></i>
+                    </div>
+                    <div class="mb-2">
+                        <span class="badge gold-badge px-3 py-1 rounded-pill">VIP PREMIUM EDITION</span>
+                    </div>
+                    <h4 class="fw-bold mb-2 gradient-gold-text">Panel VIP JuikoDeveloper</h4>
+                    <p class="text-readable-muted small mb-4">
+                        Selamat datang! Anda sedang menggunakan versi Premium VIP tanpa batasan limit dan tanpa sistem koin.
+                    </p>
+                    
+                    <div class="text-start bg-dark bg-opacity-75 p-3 rounded-3 border border-warning border-opacity-50 mb-4 small">
+                        <div class="d-flex mb-2">
+                            <i class="fa-solid fa-infinity text-warning me-2 mt-1 fs-6"></i>
+                            <span class="text-white"><strong>Unlimited Access:</strong> Memproses akun buyer sepuasnya tanpa takut kehabisan limit/saldo.</span>
+                        </div>
+                        <div class="d-flex mb-2">
+                            <i class="fa-solid fa-pen-to-square text-warning me-2 mt-1 fs-6"></i>
+                            <span class="text-white"><strong>Custom Order ID:</strong> Bebas mengubah prefix ID Transaksi lisensi pesanan.</span>
+                        </div>
+                        <div class="d-flex">
+                            <i class="fa-solid fa-bolt text-success me-2 mt-1 fs-6"></i>
+                            <span class="text-white"><strong>Sistem Otomatis:</strong> Eksekusi lisensi premium 1 Tahun secara instan.</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-gradient-gold w-100 py-3" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-circle-check me-2"></i> Akses Panel VIP Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const CONFIG = {
+            API_KEY: "AIzaSyDtG1AU22ErnQD60AzBAcaknySiz9_CEq0",
+            PRODUCT_ID: "am.full.sub.annual.19q4",
+            TOKEN: "mmgaobamlahbbeccfplmbkbb.AO-J1OzqG0or_GJJIx-ms8GrTm-jaglCRfhQSRPUZKpl2YspYS-oN7_94uv8RC5vQbvd_Ios2pPDStZ2n7F0hLE3FiOU7HS3R6Fquulv5xLXFECSv4ctElw",
+            SKU_TYPE: "subs",
+            FIREBASE_INSTANCE_ID_TOKEN: "cSDnCyp3T-uwp07z3tL86T:APA91bFkmvvsHw5nnqa1SBFci-99DRsKClLiETdRrVcJjS5yBx1v_FbCb1d8WhBuea_zmwnYBktyTIzcRhN4b6uNOUur9wPc0gKXmJDoZic0LhNq5V2s0xI",
+            HEADERS: {
+                "Content-Type": "application/json",
+                "X-Android-Package": "com.alightcreative.motion",
+                "X-Android-Cert": "ECA6BF91B8715A6F810ED0BBFC65B6CD578F52A8"
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const infoModal = new bootstrap.Modal(document.getElementById('infoModal'));
+            infoModal.show();
+        });
+
+        function showLog(text, isError = false) {
+            const logBox = document.getElementById('statusLog');
+            const logText = document.getElementById('logText');
+            const spinner = document.getElementById('logSpinner');
+            
+            logBox.classList.remove('d-none');
+            logText.innerText = text;
+
+            if (isError) {
+                spinner.classList.add('d-none');
+                logText.className = "d-block text-danger font-monospace";
+            } else {
+                spinner.classList.remove('d-none');
+                logText.className = "d-block text-warning font-monospace";
+            }
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function extractOobCode(fullUrl) {
+            if (!fullUrl) return null;
+            try {
+                let cleanUrl = fullUrl.replace(/&amp;/g, '&');
+                try { cleanUrl = decodeURIComponent(cleanUrl); } catch(e) {}
+                
+                try {
+                    const urlObj = new URL(cleanUrl);
+                    let oobCode = urlObj.searchParams.get('oobCode');
+                    if (!oobCode) {
+                        const nestedLink = urlObj.searchParams.get('link') || urlObj.searchParams.get('q') || urlObj.searchParams.get('url');
+                        if (nestedLink) {
+                            const innerUrlObj = new URL(nestedLink);
+                            oobCode = innerUrlObj.searchParams.get('oobCode');
+                        }
+                    }
+                    if (oobCode) return oobCode.replace(/[^a-zA-Z0-9_-]/g, '');
+                } catch (e) {}
+
+                const match = cleanUrl.match(/[?&]oobCode=([a-zA-Z0-9_-]+)/i) || cleanUrl.match(/oobCode=([a-zA-Z0-9_-]+)/i);
+                if (match && match[1]) return match[1];
+                return null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function sendMagicLink() {
+            const email = document.getElementById('emailInput').value;
+            if (!email || !email.includes('@')) {
+                alert('Format email buyer tidak valid!');
+                return;
+            }
+
+            showLog("Connecting to Alight Motion Server & Sending Magic Link to Buyer...");
+
+            try {
+                await fetch(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/createAuthUri?key=${CONFIG.API_KEY}`, {
+                    method: 'POST',
+                    headers: CONFIG.HEADERS,
+                    body: JSON.stringify({ identifier: email, continueUri: "http://localhost" })
+                });
+
+                const res = await fetch(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=${CONFIG.API_KEY}`, {
+                    method: 'POST',
+                    headers: CONFIG.HEADERS,
+                    body: JSON.stringify({
+                        requestType: 6,
+                        email: email,
+                        androidInstallApp: true,
+                        canHandleCodeInApp: true,
+                        continueUrl: "https://alightcreative.com?ui_sid=0366624874&ui_sd=0",
+                        iosBundleId: "com.alightcreative.motion",
+                        androidPackageName: "com.alightcreative.motion",
+                        androidMinimumVersion: "585",
+                        clientType: "CLIENT_TYPE_ANDROID"
+                    })
+                });
+
+                if (res.ok) {
+                    showLog("Magic Link successfully sent! Ask buyer to copy button link from email and paste in Step 2.");
+                    document.getElementById('targetBuyerDisplay').innerText = email;
+                    document.getElementById('step1').style.display = 'none';
+                    document.getElementById('step2').style.display = 'block';
+                } else {
+                    const err = await res.json();
+                    showLog("Failed to send verification email: " + JSON.stringify(err), true);
+                }
+            } catch (err) {
+                showLog("Connection error: " + err.message, true);
+            }
+        }
+
+        async function processPremium() {
+            const email = document.getElementById('emailInput').value;
+            const rawLink = document.getElementById('linkInput').value;
+            const customPrefix = document.getElementById('orderIdInput').value || "JUIKOxDev-VIP-0000-";
+
+            if (!rawLink) {
+                alert('Silakan tempel (paste) URL verifikasi yang Anda dapatkan dari buyer!');
+                return;
+            }
+
+            const oobCode = extractOobCode(rawLink);
+            if (!oobCode) {
+                alert('URL Verifikasi tidak valid atau parameter oobCode hilang/kedaluwarsa!');
+                return;
+            }
+
+            showLog("Validating OobCode & Authenticating Buyer Account...");
+
+            try {
+                const signinRes = await fetch(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/emailLinkSignin?key=${CONFIG.API_KEY}`, {
+                    method: 'POST',
+                    headers: CONFIG.HEADERS,
+                    body: JSON.stringify({
+                        email: email,
+                        oobCode: oobCode,
+                        clientType: "CLIENT_TYPE_ANDROID"
+                    })
+                });
+
+                const signinData = await signinRes.json();
+                if (!signinRes.ok) throw new Error(JSON.stringify(signinData));
+
+                const idToken = signinData.idToken;
+
+                showLog("Authentication Success! Injecting Premium Alight Motion License...");
+
+                const codeOrder = getRandomInt(10000, 99999).toString();
+                const finalOrderId = customPrefix + codeOrder;
+
+                const premiumRes = await fetch('https://us-central1-alight-creative.cloudfunctions.net/verifyPurchase', {
+                    method: 'POST',
+                    headers: {
+                        "authorization": "Bearer " + idToken,
+                        "firebase-instance-id-token": CONFIG.FIREBASE_INSTANCE_ID_TOKEN,
+                        "content-type": "application/json; charset=utf-8"
+                    },
+                    body: JSON.stringify({
+                        data: {
+                            productId: CONFIG.PRODUCT_ID,
+                            token: CONFIG.TOKEN,
+                            skuType: CONFIG.SKU_TYPE,
+                            orderId: finalOrderId
+                        }
+                    })
+                });
+
+                const premiumData = await premiumRes.json();
+
+                document.getElementById('logSpinner').classList.add('d-none');
+                showLog("SUCCESS VIP! Buyer Account (" + email + ") is now PREMIUM!\nOrder ID: " + finalOrderId + "\nPowered by JuikoWeb VIP");
+                alert("Aktivasi Sukses! Akun buyer berhasil diubah menjadi Premium VIP.");
+
+            } catch (err) {
+                showLog("Activation Failed: " + err.message, true);
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('linkInput').value = '';
+            document.getElementById('statusLog').classList.add('d-none');
+        }
+    </script>
+</body>
+</html>
